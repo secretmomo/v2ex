@@ -1,6 +1,13 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.tz.setDefault("Asia/Shanghai");
+
 import { sendPostMessage } from "@secret-momo/lark-notifier";
 
 const client = axios.create({
@@ -15,7 +22,7 @@ async function notify(msg: string) {
   await sendPostMessage(
     JSON.stringify({
       zh_cn: {
-        title: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+        title: dayjs.tz().format("YYYY-MM-DD HH:mm:ss"),
         content: [
           [
             {
