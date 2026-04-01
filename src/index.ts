@@ -73,9 +73,7 @@ async function notifyCheckInSuccess(html: string) {
   const totalLoginDays = match2?.[1] || 0;
   const coins = await getBalance();
 
-  await notify(
-    `✅ 签到成功：领取 ${checkInCoin} 铜币，已登录 ${totalLoginDays} 天，账户余额 ${coins} 铜币。`,
-  );
+  await notify(`🗓 ${totalLoginDays} - 🪙 ${checkInCoin}/${coins}。`);
 }
 
 async function checkIn() {
