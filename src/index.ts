@@ -1,12 +1,5 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
-
-dayjs.extend(utc);
-dayjs.extend(timezone);
-dayjs.tz.setDefault("Asia/Shanghai");
 
 import { sendPostMessage } from "@secret-momo/lark-notifier";
 
@@ -22,7 +15,6 @@ async function notify(msg: string) {
   await sendPostMessage(
     JSON.stringify({
       zh_cn: {
-        title: dayjs.tz().format("YYYY-MM-DD HH:mm:ss"),
         content: [
           [
             {
@@ -32,7 +24,7 @@ async function notify(msg: string) {
             {
               tag: "a",
               href: process.env.RUN_URL,
-              text: "(查看详情)",
+              text: "→",
             },
           ],
         ],
@@ -73,7 +65,7 @@ async function notifyCheckInSuccess(html: string) {
   const totalLoginDays = match2?.[1] || 0;
   const coins = await getBalance();
 
-  await notify(`🗓 ${totalLoginDays} - 🪙 ${checkInCoin}/${coins}。`);
+  await notify(`✅ ${totalLoginDays} 天，${checkInCoin}/${coins} 铜币。`);
 }
 
 async function checkIn() {
