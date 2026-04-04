@@ -24,7 +24,7 @@ async function notify(msg: string) {
             {
               tag: "a",
               href: process.env.RUN_URL,
-              text: "→",
+              text: "任务地址",
             },
           ],
         ],
