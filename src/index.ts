@@ -1,7 +1,6 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
-
-import { sendPostMessage } from "@secret-momo/lark-notifier";
+import { sendPostMessage, errorCardMessage } from "@secret-momo/lark-notifier";
 
 const client = axios.create({
   headers: {
@@ -86,7 +85,7 @@ async function checkIn() {
 }
 
 checkIn().catch(async (err) => {
-  await notify(`❌ 签到失败: ${err.message}。`);
+  await errorCardMessage(err.message);
 
   console.error(`❌ 签到失败: ${err.message}`);
   process.exit(1);
